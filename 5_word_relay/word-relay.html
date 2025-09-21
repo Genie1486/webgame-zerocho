@@ -17,6 +17,18 @@
         const number = parseInt(prompt("참가자는 몇 명인가요?"), 10);
         const $input = document.querySelector("input"); // input 태그 선택
         const $button = document.querySelector("button"); // button 태그 선택
+        let newWord; // 현재 단어
+        const onInput = (event) => {
+            newWord = event.target.value; // 입력한 단어를 현재 단어로 저장
+        };
+        const onClickButton = () => { };
+
+        // 글자 입력 이벤트 발생할 때마다 
+        // onInput 함수 실행 -> 예를 콜백함수라고 한다.
+        // 콜백함수 : 어떤 동작이 실행된 이후에 연이어 실행되는 함수
+        $input.addEventListener('input', onInput);
+        $button.addEventListener('click', onClickButton);
+
     </script>
 </body>
 
