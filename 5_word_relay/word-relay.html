@@ -25,7 +25,7 @@
             newWord = event.target.value; // 입력한 단어를 현재 단어로 저장
         };
         const onClickButton = () => {
-            if (!word || word[word.length - 1] === newWord[0]) { // 제시어가 비어 있는가? 또는 단어가 올바른가?
+            if (!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) { // 제시어가 비어 있는가? 또는 단어가 올바른가?
                 word = newWord; // 입력한 단어가 제시어가 된다.
                 $word.textContent = word; // 화면의 제시어 바꿔주기
                 const order = Number($order.textContent); // 현재 순서
@@ -40,7 +40,6 @@
             $input.value = '';
             $input.focus(); // 커서를 둔다.
         };
-
         // 글자 입력 이벤트 발생할 때마다 
         // onInput 함수 실행 -> 예를 콜백함수라고 한다.
         // 콜백함수 : 어떤 동작이 실행된 이후에 연이어 실행되는 함수
