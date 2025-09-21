@@ -29,27 +29,29 @@
                 // 비어 있다.
                 word = newWord; // 입력한 단어가 제시어가 된다.
                 $word.textContent = word; // 화면의 제시어 바꿔주기
-                $input.value = '';
                 const order = Number($order.textContent); // 현재 순서
                 if (order + 1 > number) {
                     $order.textContent = 1; // textContent는 문자로 자동형변환해서 넣어주니 '1' 이라고 안해도 된다.
                 } else {
                     $order.textContent = order + 1;
                 }
+                $input.value = '';
+                $input.focus(); // 커서를 둔다.
             } else {
                 // 비어 있지 않다.
                 if (word[word.length - 1] === newWord[0]) { // 올바른가
                     word = newWord; // 입력한 단어가 제시어가 된다.
                     $word.textContent = word; // 화면의 제시어 바꿔주기
-                    $input.value = '';
                     const order = Number($order.textContent); // 현재 순서
                     if (order + 1 > number) {
                         $order.textContent = 1; // textContent는 문자로 자동형변환해서 넣어주니 '1' 이라고 안해도 된다.
                     } else {
                         $order.textContent = order + 1;
                     }
+                    $input.value = '';
+                    $input.focus(); // 커서를 둔다.
                 } else { // 올바르지 않은가
-
+                    alert("올바르지 않은 단어입니다!");
                 }
             }
         };
