@@ -31,6 +31,13 @@
                 $input.value = '';
             } else {
                 // 비어 있지 않다.
+                if (word[word.length - 1] === newWord[0]) { // 올바른가
+                    word = newWord; // 입력한 단어가 제시어가 된다.
+                    $word.textContent = word; // 화면의 제시어 바꿔주기
+                    $input.value = '';
+                } else { // 올바르지 않은가
+
+                }
             }
         };
 
