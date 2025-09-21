@@ -17,6 +17,7 @@
         const number = parseInt(prompt("참가자는 몇 명인가요?"), 10);
         const $input = document.querySelector("input"); // input 태그 선택
         const $button = document.querySelector("button"); // button 태그 선택
+        const $word = document.querySelector("#word");
         let word; // 제시어
         let newWord; // 현재 단어
         const onInput = (event) => {
@@ -25,6 +26,9 @@
         const onClickButton = () => {
             if (!word) { // 제시어가 비어 있는가?
                 // 비어 있다.
+                word = newWord; // 입력한 단어가 제시어가 된다.
+                $word.textContent = word; // 화면의 제시어 바꿔주기
+                $input.value = '';
             } else {
                 // 비어 있지 않다.
             }
