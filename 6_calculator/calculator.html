@@ -129,7 +129,15 @@
                 alert('숫자를 먼저 입력하세요.');
             }
         });
-        document.querySelector('#clear').addEventListener('click', () => { });
+        document.querySelector('#clear').addEventListener('click', () => {
+            // 코드 작성할 때 초기상태를 제일 위에 두면 
+            // 초기화 관련 코드 작성할 때 편하다.
+            numOne = '';
+            operator = '';
+            numTwo = '';
+            $operator.value = '';
+            $result.value = '';
+        });
     </script>
 </body>
 
