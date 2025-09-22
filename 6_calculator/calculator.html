@@ -68,6 +68,9 @@
         const $result = document.querySelector('#result');
         const onClickNumber = (event) => {
             if (operator) { // 비어있지 않다.
+                if (!numTwo) { // numTwo를 처음 입력할 때
+                    $result.value = ''; // 화면 지우고 
+                }
                 numTwo += event.target.textContent;
             } else { // 비어있다.
                 numOne += event.target.textContent;
