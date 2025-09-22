@@ -67,15 +67,18 @@
         const $operator = document.querySelector('#operator');
         const $result = document.querySelector('#result');
         const onClickNumber = (event) => {
-            if (operator) { // 비어있지 않다.
-                if (!numTwo) { // numTwo를 처음 입력할 때
-                    $result.value = ''; // 화면 지우고 
-                }
-                numTwo += event.target.textContent;
-            } else { // 비어있다.
+            if (!operator) { // 비어있다.
                 numOne += event.target.textContent;
+                $result.value += event.target.textContent;
+                return;
             }
+            // 비어있지않다.
+            if (!numTwo) { // numTwo를 처음 입력할 때
+                $result.value = ''; // 화면 지우고 
+            }
+            numTwo += event.target.textContent;
             $result.value += event.target.textContent;
+
         } // 고차함수 : 함수가 함수를 리턴하는 함수 
 
         // 마우스 휠 누르고 드래그 하면 
