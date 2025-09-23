@@ -32,6 +32,26 @@
         $form.addEventListener('submit', (event) => {
             event.preventDefault();
             // 검사
+
+            // event.target은 form이 되고
+            // 그 form안에 name=input인 태그의 value를 가져오자
+            const string = event.target.input.value; // 1, 2, 3, 4, 5, 6
+
+            // trim으로 문자열 앞뒤 공백제거
+            if (!string.trim()) {
+                return alert('숫자를 입력하세요.');
+            }
+
+            const myNumbers = string.split(',').map((v) => parseInt(v.trim()));
+            if (myNumbers.length !== 6) {
+                return alert('숫자를 6개 입력하세요.');
+            }
+            if (new Set(myNumbers).size() !== 6) {
+                return alert('중복된 숫자를 입력했습니다.');
+            }
+            if (myNumbers.find((v) => v > 45 || v < 1)) {
+                return alert('1부터 45까지만 입력할 수 있습니다.');
+            }
         });
     </script>
 </body>
