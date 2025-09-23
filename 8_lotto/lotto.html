@@ -46,12 +46,25 @@
             if (myNumbers.length !== 6) {
                 return alert('숫자를 6개 입력하세요.');
             }
-            if (new Set(myNumbers).size() !== 6) {
+            if (new Set(myNumbers).size !== 6) {
                 return alert('중복된 숫자를 입력했습니다.');
             }
             if (myNumbers.find((v) => v > 45 || v < 1)) {
                 return alert('1부터 45까지만 입력할 수 있습니다.');
             }
+
+            // [1, 2, 3, ... , 45]
+            const candidate = Array(45).fill().map((v, i) => i + 1);
+            const shuffle = [];
+
+            while (candidate.length > 0) {
+                const random = Math.floor(Math.random() * candidate.length); // 무작위 인덱스 뽑기
+                const spliceArray = candidate.splice(random, 1); // 뽑은 값 새로운 배열에 넣기
+                const value = spliceArray[0]; // splice는 배열을 반환하기 때문에 값을 꺼내준다.
+                shuffle.push(value); // 꺼낸 값을 shuffle 배열에 넣기
+            }
+
+            console.log(shuffle);
         });
     </script>
 </body>
