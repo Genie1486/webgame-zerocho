@@ -103,6 +103,11 @@
             // 1초 기다리고 1번공, 1초 기다리고 2번공, 1초 기다리고 3번공, ...
             // 1초 기다리고 보너스공
 
+            // 화면수정과 alert가 같이 있으면 alert가 먼저 시행된다.
+            // 화면수정이 일종의 비동기로 동작한다고 이해하자
+            // 그래서 잠시 시간을 준다.
+            await setTimeoutPromise(0); // setTimeout에서 0초는 4ms이다. 
+
             let count = 0;
             myNumbers.forEach((my) => {
                 if (winBalls.includes(my)) {
