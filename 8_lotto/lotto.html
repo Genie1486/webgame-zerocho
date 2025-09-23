@@ -40,7 +40,15 @@
             $target.appendChild($ball);
         }
 
-        $form.addEventListener('submit', (event) => {
+
+        // async, await 문법은 promise에만 적용할 수 있기 때문에
+        // setTimeout은 promise가 아니므로 promise로 바꿔준다.
+        const setTimeoutPromise = (ms) => new Promise((resolve, reject) => {
+            setTimeout(resolve, ms);
+        })
+
+        // async 함수에서는 await을 쓸 수 있다. 
+        $form.addEventListener('submit', async (event) => {
             event.preventDefault();
             // 검사
 
@@ -80,15 +88,20 @@
             console.log(winBalls, bonus);
 
             for (let i = 0; i < winBalls.length; i++) {
-                setTimeout(() => {
-                    drawBall($result, winBalls[i]);
-                }, 1000 * (i + 1));
+                await setTimeoutPromise(1000); // 1초 기다리기
+                drawBall($result, winBalls[i]);
             }
+            await setTimeoutPromise(1000); // 1초 기다리기
+            drawBall($bonus, bonus);
 
-            setTimeout(() => {
-                drawBall($bonus, bonus);
-            }, 1000 * (winBalls.length + 1));
+            // 아까 코드는
+            // 0초 일 때 모든 타이머를 등록해 놓는다.
+            // 1초뒤에 1번공, 2초뒤에 2번공, 3초뒤에 3번공, 4초뒤에 4번공...
+            // 7초뒤에 보너스 공
 
+            // 현재 코드는
+            // 1초 기다리고 1번공, 1초 기다리고 2번공, 1초 기다리고 3번공, ...
+            // 1초 기다리고 보너스공
         });
     </script>
 </body>
