@@ -65,10 +65,16 @@
             setTimeout(resolve, ms);
         })
 
+        let clicked = false;
+
         // async 함수에서는 await을 쓸 수 있다. 
         $form.addEventListener('submit', async (event) => {
             event.preventDefault();
             // 검사
+            if (clicked) {
+                return;
+            }
+            clicked = true;
 
             // event.target은 form이 되고
             // 그 form안에 name=input인 태그의 value를 가져오자
@@ -124,7 +130,7 @@
             // 화면수정과 alert가 같이 있으면 alert가 먼저 시행된다.
             // 화면수정이 일종의 비동기로 동작한다고 이해하자
             // 그래서 잠시 시간을 준다.
-            await setTimeoutPromise(0); // setTimeout에서 0초는 4ms이다. 
+            await setTimeoutPromise(50); // setTimeout에서 0초는 4ms이다. 
 
             let count = 0;
             myNumbers.forEach((my) => {
@@ -147,6 +153,7 @@
             } else {
                 alert('로또 참 어렵죠?');
             }
+            clicked = false;
         });
     </script>
 </body>
