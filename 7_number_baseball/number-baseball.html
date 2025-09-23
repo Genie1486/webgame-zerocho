@@ -55,6 +55,11 @@
 
         let out = 0;
 
+        function defeated() {
+            const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+            $logs.appendChild(message);
+        }
+
         $form.addEventListener('submit', (event) => {
             event.preventDefault();
             const value = $input.value;
@@ -72,8 +77,7 @@
             }
 
             if (tries.length >= 9) {
-                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`)
-                $logs.appendChild(message);
+                defeated();
                 return;
             }
 
@@ -102,8 +106,7 @@
             }
 
             if (out === 3) {
-                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
-                $logs.appendChild(message);
+                defeated();
                 return;
             }
 
