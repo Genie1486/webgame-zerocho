@@ -33,11 +33,35 @@
 
         console.log(answer);
 
-        // form안에 있는 button을 누르면 
-        // form에서 'submit' 이벤트 발생
+        const tries = [];
+        function checkInput(input) {
+            if (input.length !== 4) { // 길이가 4인지
+                return alert('4자리 숫자를 입력하세요.');
+            }
+
+            if (new Set(input).size != 4) { // 중복된 숫자가 있는지
+                return alert('중복된 숫자를 입력했습니다.')
+            }
+
+            if (tries.includes(input)) { // 이미 시도한 값인지
+                return alert('이미 시도한 값입니다.');
+            }
+
+            // 정규표현식으로 검증할 수도 있음 
+            // https://github.com/ziishaned/learn-regex 참고
+
+            return true;
+        }
+
         $form.addEventListener('submit', (event) => {
-            event.preventDefault(); // form의 기본 동작 제거 (새로고침 현상)
-            console.log('서브밋')
+            event.preventDefault();
+            const value = $input.value;
+            $input.value = ''; // 편의상 다음값 쉽게 입력하라고 
+            const valid = checkInput(value);
+
+            if (!valid) {
+                return;
+            }
         })
 
     </script>
