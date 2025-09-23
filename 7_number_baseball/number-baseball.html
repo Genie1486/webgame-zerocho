@@ -33,6 +33,13 @@
 
         console.log(answer);
 
+        // form안에 있는 button을 누르면 
+        // form에서 'submit' 이벤트 발생
+        $form.addEventListener('submit', (event) => {
+            event.preventDefault(); // form의 기본 동작 제거 (새로고침 현상)
+            console.log('서브밋')
+        })
+
     </script>
 </body>
 
