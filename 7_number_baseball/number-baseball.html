@@ -89,6 +89,9 @@
                 }
             }
 
+            // 문자열은 createTextNode 안하고 바로 append 해도 된다.
+            // appendChild (문자열 못넣고, 여러 개를 넣을 수 없다는 단점)
+            // 를 개선한 것이 append 
             $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
 
             tries.push(value);
