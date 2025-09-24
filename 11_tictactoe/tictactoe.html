@@ -20,6 +20,7 @@
 
 <body>
     <script>
+        let turn = 'O';
         const { body } = document;
 
         const $table = document.createElement('table');
@@ -28,8 +29,14 @@
             const $tr = document.createElement('tr');
             for (let j = 1; j <= 3; j++) {
                 const $td = document.createElement('td');
-                $td.addEventListener('click', () => {
-                    console.log('clicked');
+                $td.addEventListener('click', (event) => {
+                    event.target.textContent = turn;
+                    // 승부 확인
+                    if (turn === 'O') {
+                        turn = 'X';
+                    } else if (turn === 'X') {
+                        turn = 'O';
+                    }
                 })
                 $tr.append($td);
             }
