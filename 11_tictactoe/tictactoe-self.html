@@ -95,6 +95,7 @@
             // 승자가 있으면
             if (hasWinner) {
                 $result.textContent = `${turn}님이 승리!`;
+                $table.removeEventListener('click', callback);
                 return;
             }
 
