@@ -62,6 +62,7 @@
         };
 
         let clickable = true;
+        let score = 0;
 
         const clickButton = () => {
             if (clickable) {
@@ -78,13 +79,21 @@
                 const myScore = scoreTable[myChoice];
                 const computerScore = scoreTable[computerChoice];
                 const diff = myScore - computerScore;
+
+                // 2, -1은 승리조건이고
+                // -2, 1은 패배조건 
+                // 점수표 참고
+                let message;
                 if ([2, -1].includes(diff)) {
-                    console.log('승리!');
+                    score += 1;
+                    message = "승리";
                 } else if ([-2, 1].includes(diff)) {
-                    console.log('패배');
+                    score -= 1;
+                    message = "패배";
                 } else {
-                    console.log('무승부');
+                    message = "무승부";
                 }
+                $score.textContent = `${message} 총: ${score}점`;
 
                 setTimeout(() => {
                     clickable = true;
