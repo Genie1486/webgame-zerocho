@@ -21,14 +21,26 @@
 <body>
     <script>
         let turn = 'O';
+        // 구조분해 할당 -> 객체의 속성이름과 변수명이 같을 때 사용
+        // 여러 줄일 때 유용
         const { body } = document;
 
         const $table = document.createElement('table');
         const $result = document.createElement('div'); // 결과창
+        const rows = [];
+
+        // rows = [
+        //     [$td, $td, $td],
+        //     [$td, $td, $td],
+        //     [$td, $td, $td],
+        // ]
+
         for (let i = 1; i <= 3; i++) {
             const $tr = document.createElement('tr');
+            const cells = [];
             for (let j = 1; j <= 3; j++) {
                 const $td = document.createElement('td');
+                cells.push($td);
                 $td.addEventListener('click', (event) => {
                     // 칸에 글자가 있나?
                     if (event.target.textContent) {
@@ -44,6 +56,7 @@
                 })
                 $tr.append($td);
             }
+            rows.push(cells);
             $table.append($tr);
         }
 
