@@ -88,6 +88,26 @@
         //     [$td, $td, $td],
         // ]
 
+        // checkWinner 함수 쓰려면 
+        // checkWinner 함수보다 아래에 선언해야 한다.
+        const checkWinnerAndDraw = (target) => {
+            const hasWinner = checkWinner(target);
+            // 승자가 있으면
+            if (hasWinner) {
+                $result.textContent = `${turn}님이 승리!`;
+                return;
+            }
+
+            // 승자가 없으면
+            const draw = rows.flat().every((cell) => cell.textContent);
+
+            if (draw) {
+                $result.textContent = '무승부';
+                return
+            }
+            turn = turn === 'X' ? 'O' : 'X';
+        }
+
         const callback = (event) => {
             // 이벤트버블링 현상을 막고 싶다면
             // event.stopPropagation();
@@ -103,26 +123,7 @@
             console.log('빈칸입니다.');
             event.target.textContent = turn;
 
-            // 승부 확인
-            const hasWinner = checkWinner(event.target);
-            if (hasWinner) {
-                $result.textContent = `${turn}님의 승리`;
-                $table.removeEventListener('click', callback);
-                return;
-            };
-
-            // 무승부 검사
-            // every는 모두 참이면 true 하나라도 거짓이면 false 반환
-            // every는 일차원 배열에만 쓸 수 있다.
-            // rows.flat() 하면 일차원 배열로 펴짐
-            const draw = rows.flat().every((cell) => cell.textContent);
-
-            if (draw) {
-                $result.textContent = '무승부';
-                return
-            }
-
-            turn = (turn === 'X' ? 'O' : 'X');
+            checkWinnerAndDraw(event.target);
 
             if (turn === 'X') {
                 // Array.filter(조건)은 조건에 해당하는 애만 걸러줌
@@ -130,21 +131,7 @@
                 const emptyCells = rows.flat().filter((v) => !v.textContent);
                 const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
                 randomCell.textContent = 'X';
-                const hasWinner = checkWinner(randomCell);
-                // 승자가 있으면
-                if (hasWinner) {
-                    $result.textContent = `${turn}님이 승리!`;
-                    return;
-                }
-
-                // 승자가 없으면
-                const draw = rows.flat().every((cell) => cell.textContent);
-
-                if (draw) {
-                    $result.textContent = '무승부';
-                    return
-                }
-                turn = turn === 'X' ? 'O' : 'X';
+                checkWinnerAndDraw(randomCell);
             }
         }
 
