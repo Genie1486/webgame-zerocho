@@ -36,17 +36,10 @@
         // ]
 
         const checkWinner = (target) => {
-            let rowIndex;
-            let cellIndex;
             // target(td)이 몇번째 줄, 몇번째 칸인지 확인하는 코드
-            rows.forEach((row, ri) => {
-                row.forEach((cell, ci) => {
-                    if (cell === target) {
-                        rowIndex = ri;
-                        cellIndex = ci;
-                    }
-                })
-            })
+            // parentNode는 어떤 태그의 부모태그를 가져오는 코드
+            let rowIndex = target.parentNode.rowIndex; // tr은 자신이 몇번째 행인지 알고 있다.
+            let cellIndex = target.cellIndex; // td는 자신이 몇번째 열인지 알고 있다.
 
             // 세 칸 다 채워졌나?
             let hasWinner = false;
