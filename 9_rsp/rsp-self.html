@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>가위바위보</title>
+    <style>
+        #computer {
+            width: 165px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="computer"></div>
+    <div>
+        <button id="scissors" class="btn">가위</button>
+        <button id="rock" class="btn">바위</button>
+        <button id="paper" class="btn">보</button>
+    </div>
+    <div id="score">0</div>
+    <script>
+        const $computer = document.querySelector('#computer');
+        const $score = document.querySelector('#score');
+        const $rock = document.querySelector('#rock');
+        const $scissors = document.querySelector('#scissors');
+        const $paper = document.querySelector('#paper');
+        const IMG_URL = './rsp.png'; // ./ 현재폴더, ..// 부모폴더
+        $computer.style.background = `url(${IMG_URL}) 0 0`; // 0 0 은 image의 가로위치, 세로위치 지정하는 부분
+        $computer.style.backgroundSize = 'auto 200px'; // 너비는 auto, 높이는 200px
+
+        // 백그라운드 포지션
+        const rspX = {
+            scissors: '0', // 가위
+            rock: '-220px', // 바위
+            paper: '-440px', // 보
+        }
+
+        let computerChoice = 'scissors';
+
+        const changeComputerHand = () => {
+            if (computerChoice === 'scissors') { // 가위면
+                computerChoice = 'rock';
+            } else if (computerChoice === 'rock') { // 바위면
+                computerChoice = 'paper';
+            } else if (computerChoice === 'paper') { // 보면
+                computerChoice = 'scissors';
+            }
+            // background와 backgroundSize는 세트로 설정해줘야 함
+            // rspX.computerChoice 하면 안됨
+            // rspX.computerChoice = rspX['computerChoice']
+            $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`; // 0 0 은 image의 가로위치, 세로위치 지정하는 부분
+            $computer.style.backgroundSize = 'auto 200px'; // 너비는 auto, 높이는 200px
+        }
+
+        let intervalId = setInterval(changeComputerHand, 50);
+
+        const scoreTable = {
+            scissors: 1,
+            rock: 0,
+            paper: -1,
+        };
+
+        let clickable = true;
+        let computer = 0;
+        let me = 0;
+
+        const clickButton = () => {
+            if (clickable) {
+                clearInterval(intervalId); // 타이머 멈추기
+                clickable = false;
+
+                // 점수 계산 및 화면 표시
+                const myChoice = event.target.textContent === '바위'
+                    ? 'rock'
+                    : event.target.textContent === '가위'
+                        ? 'scissors'
+                        : 'paper';
+
+                const myScore = scoreTable[myChoice];
+                const computerScore = scoreTable[computerChoice];
+                const diff = myScore - computerScore;
+
+                // 2, -1은 승리조건이고
+                // -2, 1은 패배조건 
+                // 점수표 참고
+                let message;
+                if ([2, -1].includes(diff)) {
+                    me += 1;
+                    message = "승리";
+                } else if ([-2, 1].includes(diff)) {
+                    computer += 1;
+                    message = "패배";
+                } else {
+                    message = "무승부";
+                }
+
+                if (me >= 3) {
+                    $score.textContent = `나의 승리 ${me}:${computer}`;
+                } else if (computer >= 3) {
+                    $score.textContent = `컴퓨터의 승리 ${me}:${computer}`;
+                } else {
+                    $score.textContent = `${message} ${me}:${computer}`;
+                    setTimeout(() => {
+                        clickable = true;
+                        intervalId = setInterval(changeComputerHand, 50);
+                    }, 1000);
+                }
+
+            }
+
+        }
+
+        $rock.addEventListener('click', clickButton);
+        $scissors.addEventListener('click', clickButton);
+        $paper.addEventListener('click', clickButton);
+    </script>
+</body>
+
+</html>
