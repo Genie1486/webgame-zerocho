@@ -111,7 +111,10 @@
             event.target.textContent = turn;
 
             // 승부 확인
-            checkWinner(event.target);
+            if (checkWinner(event.target)) {
+                $result.textContent = `${turn}님의 승리`;
+                return;
+            };
             turn = (turn === 'X' ? 'O' : 'X');
         }
 
