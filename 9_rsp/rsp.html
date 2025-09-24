@@ -38,7 +38,7 @@
 
         let computerChoice = 'scissors';
 
-        setInterval(() => {
+        const changeComputerHand = () => {
             if (computerChoice === 'scissors') { // 가위면
                 computerChoice = 'rock';
             } else if (computerChoice === 'rock') { // 바위면
@@ -51,7 +51,9 @@
             // rspX.computerChoice = rspX['computerChoice']
             $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`; // 0 0 은 image의 가로위치, 세로위치 지정하는 부분
             $computer.style.backgroundSize = 'auto 200px'; // 너비는 auto, 높이는 200px
-        }, 50);
+        }
+
+        setInterval(changeComputerHand, 50);
 
     </script>
 </body>
