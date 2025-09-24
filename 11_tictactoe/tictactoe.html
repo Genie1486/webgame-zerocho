@@ -36,8 +36,13 @@
         // ]
 
         const callback = (event) => {
+            // 이벤트버블링 현상을 막고 싶다면
+            // event.stopPropagation();
+
             // 칸에 글자가 있나?
             if (event.target.textContent !== '') { // 칸이 이미 채워져 있는가?
+                // event.target은 td
+                // event.currentTarget은 table (이벤트를 실제로 붙인 애)
                 console.log('빈칸이 아닙니다.');
                 return;
             }
@@ -55,12 +60,17 @@
             for (let j = 1; j <= 3; j++) {
                 const $td = document.createElement('td');
                 cells.push($td);
-                $td.addEventListener('click', callback);
                 $tr.append($td);
             }
             rows.push(cells);
             $table.append($tr);
         }
+
+        // 이벤트 버블링 현상 활용
+        // 자식한테서 발생한 이벤트가 부모한테도 발생하는 현상
+        // td에 클릭이벤트가 발생하면 
+        // td->tr->table>body... 순으로 클릭이벤트가 발생
+        $table.addEventListener('click', callback);
 
         body.appendChild($table);
         body.appendChild($result);
