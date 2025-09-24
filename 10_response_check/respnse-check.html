@@ -37,6 +37,8 @@
         let startTime;
         let endTime;
 
+        const records = [];
+
         $screen.addEventListener('click', (event) => {
             if (event.target.classList.contains('waiting')) { // 파랑
                 $screen.classList.remove('waiting');
@@ -56,7 +58,15 @@
                 // 끝 시간 재기
                 endTime = new Date();
                 // 시간 차이 저장하기
-                $result.textContent = `${endTime - startTime}ms`;
+                const current = endTime - startTime;
+                records.push(current);
+                const average = records.reduce((a, c) => a + c) / records.length;
+
+
+                $result.textContent = `현재 ${current}ms, 평균: ${average}ms`;
+
+                startTime = null;
+                endTime = null;
 
                 $screen.classList.remove('now');
                 $screen.classList.add('waiting');
