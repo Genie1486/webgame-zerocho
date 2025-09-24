@@ -113,6 +113,7 @@
             // 승부 확인
             if (checkWinner(event.target)) {
                 $result.textContent = `${turn}님의 승리`;
+                $table.removeEventListener('click', callback);
                 return;
             };
 
