@@ -108,7 +108,12 @@
             turn = turn === 'X' ? 'O' : 'X';
         }
 
+        let clickable = true;
+
         const callback = (event) => {
+            if (!clickable) {
+                return;
+            }
             // 이벤트버블링 현상을 막고 싶다면
             // event.stopPropagation();
 
@@ -126,12 +131,16 @@
             checkWinnerAndDraw(event.target);
 
             if (turn === 'X') {
-                // Array.filter(조건)은 조건에 해당하는 애만 걸러줌
-                // td들 중에 빈칸인 애들만 걸러서 emptyCells에 담아줌
                 const emptyCells = rows.flat().filter((v) => !v.textContent);
                 const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                randomCell.textContent = 'X';
-                checkWinnerAndDraw(randomCell);
+                clickable = false;
+                // Array.filter(조건)은 조건에 해당하는 애만 걸러줌
+                // td들 중에 빈칸인 애들만 걸러서 emptyCells에 담아줌
+                setTimeout(() => {
+                    randomCell.textContent = 'X';
+                    checkWinnerAndDraw(randomCell);
+                    clickable = true;
+                }, 1000);
             }
         }
 
