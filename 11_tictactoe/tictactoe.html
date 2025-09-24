@@ -104,7 +104,8 @@
             event.target.textContent = turn;
 
             // 승부 확인
-            if (checkWinner(event.target)) {
+            const hasWinner = checkWinner(event.target);
+            if (hasWinner) {
                 $result.textContent = `${turn}님의 승리`;
                 $table.removeEventListener('click', callback);
                 return;
@@ -114,7 +115,7 @@
             // every는 모두 참이면 true 하나라도 거짓이면 false 반환
             // every는 일차원 배열에만 쓸 수 있다.
             // rows.flat() 하면 일차원 배열로 펴짐
-            const draw = rows.flat().every((td) => td.textContent);
+            const draw = rows.flat().every((cell) => cell.textContent);
 
             if (draw) {
                 $result.textContent = '무승부';
