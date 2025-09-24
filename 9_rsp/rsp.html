@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>가위바위보</title>
+    <style>
+        #computer {
+            width: 165px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="computer"></div>
+    <div>
+        <button id="scissors" class="btn">가위</button>
+        <button id="rock" class="btn">바위</button>
+        <button id="paper" class="btn">보</button>
+    </div>
+    <div id="score">0</div>
+    <script>
+        const $computer = document.querySelector('#computer');
+        const $score = document.querySelector('#score');
+        const $rock = document.querySelector('#rock');
+        const $scissors = document.querySelector('#scissors');
+        const $paper = document.querySelector('#paper');
+        const IMG_URL = './rsp.png'; // ./ 현재폴더, ..// 부모폴더
+        $computer.style.background = `url(${IMG_URL}) 0 0`; // 0 0 은 image의 가로위치, 세로위치 지정하는 부분
+        $computer.style.backgroundSize = 'auto 200px'; // 너비는 auto, 높이는 200px
+    </script>
+</body>
+
+</html>
