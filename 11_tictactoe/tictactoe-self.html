@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>틱택토</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let turn = 'O';
+        // 구조분해 할당 -> 객체의 속성이름과 변수명이 같을 때 사용
+        // 여러 줄일 때 유용
+        const { body } = document;
+
+        const $table = document.createElement('table');
+        const $result = document.createElement('div'); // 결과창
+        const rows = [];
+
+        // [
+        //      [td, td, td],
+        //      [td, td, td],
+        //      [td, td, td],
+        // ]
+
+        const checkWinner = (target) => {
+            // target(td)이 몇번째 줄, 몇번째 칸인지 확인하는 코드
+            // parentNode는 어떤 태그의 부모태그를 가져오는 코드
+            let rowIndex = target.parentNode.rowIndex; // tr은 자신이 몇번째 행인지 알고 있다.
+            let cellIndex = target.cellIndex; // td는 자신이 몇번째 열인지 알고 있다.
+
+            // 세 칸 다 채워졌나?
+            let hasWinner = false;
+
+            // 가로줄 검사
+            if (
+                rows[rowIndex][0].textContent === turn &&
+                rows[rowIndex][1].textContent === turn &&
+                rows[rowIndex][2].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            // 세로줄 검사
+            if (
+                rows[0][cellIndex].textContent === turn &&
+                rows[1][cellIndex].textContent === turn &&
+                rows[2][cellIndex].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            // 대각선 검사
+            if (
+                rows[0][0].textContent === turn &&
+                rows[1][1].textContent === turn &&
+                rows[2][2].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            if (
+                rows[0][2].textContent === turn &&
+                rows[1][1].textContent === turn &&
+                rows[2][0].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            return hasWinner; // 승자가 있으면 true, 승자가 없으면 false 반환
+        }
+
+        // rows = [
+        //     [$td, $td, $td],
+        //     [$td, $td, $td],
+        //     [$td, $td, $td],
+        // ]
+
+        const callback = (event) => {
+            // 이벤트버블링 현상을 막고 싶다면
+            // event.stopPropagation();
+
+            // 칸에 글자가 있나?
+            if (event.target.textContent !== '') { // 칸이 이미 채워져 있는가?
+                // event.target은 td
+                // event.currentTarget은 table (이벤트를 실제로 붙인 애)
+                console.log('빈칸이 아닙니다.');
+                return;
+            }
+            // 빈칸이면
+            console.log('빈칸입니다.');
+            event.target.textContent = turn;
+
+            // 승부 확인
+            const hasWinner = checkWinner(event.target);
+            if (hasWinner) {
+                $result.textContent = `${turn}님의 승리`;
+                $table.removeEventListener('click', callback);
+                return;
+            };
+
+            // 무승부 검사
+            // every는 모두 참이면 true 하나라도 거짓이면 false 반환
+            // every는 일차원 배열에만 쓸 수 있다.
+            // rows.flat() 하면 일차원 배열로 펴짐
+            const draw = rows.flat().every((cell) => cell.textContent);
+
+            if (draw) {
+                $result.textContent = '무승부';
+                return
+            }
+
+            turn = (turn === 'X' ? 'O' : 'X');
+        }
+
+        for (let i = 1; i <= 3; i++) {
+            const $tr = document.createElement('tr');
+            const cells = [];
+            for (let j = 1; j <= 3; j++) {
+                const $td = document.createElement('td');
+                cells.push($td);
+                $tr.append($td);
+            }
+            rows.push(cells);
+            $table.append($tr);
+        }
+
+        // 이벤트 버블링 현상 활용
+        // 자식한테서 발생한 이벤트가 부모한테도 발생하는 현상
+        // td에 클릭이벤트가 발생하면 
+        // td->tr->table>body... 순으로 클릭이벤트가 발생
+        $table.addEventListener('click', callback);
+
+        body.appendChild($table);
+        body.appendChild($result);
+    </script>
+</body>
+
+</html>
