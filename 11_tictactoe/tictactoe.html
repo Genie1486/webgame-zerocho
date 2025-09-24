@@ -29,6 +29,66 @@
         const $result = document.createElement('div'); // 결과창
         const rows = [];
 
+        // [
+        //      [td, td, td],
+        //      [td, td, td],
+        //      [td, td, td],
+        // ]
+
+        const checkWinner = (target) => {
+            let rowIndex;
+            let cellIndex;
+            // target(td)이 몇번째 줄, 몇번째 칸인지 확인하는 코드
+            rows.forEach((row, ri) => {
+                row.forEach((cell, ci) => {
+                    if (cell === target) {
+                        rowIndex = ri;
+                        cellIndex = ci;
+                    }
+                })
+            })
+
+            // 세 칸 다 채워졌나?
+            let hasWinner = false;
+
+            // 가로줄 검사
+            if (
+                rows[rowIndex][0].textContent === turn &&
+                rows[rowIndex][1].textContent === turn &&
+                rows[rowIndex][2].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            // 세로줄 검사
+            if (
+                rows[0][cellIndex].textContent === turn &&
+                rows[1][cellIndex].textContent === turn &&
+                rows[2][cellIndex].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            // 대각선 검사
+            if (
+                rows[0][0].textContent === turn &&
+                rows[1][1].textContent === turn &&
+                rows[2][2].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            if (
+                rows[0][2].textContent === turn &&
+                rows[1][1].textContent === turn &&
+                rows[2][0].textContent === turn
+            ) {
+                hasWinner = true;
+            }
+
+            return hasWinner; // 승자가 있으면 true, 승자가 없으면 false 반환
+        }
+
         // rows = [
         //     [$td, $td, $td],
         //     [$td, $td, $td],
@@ -51,6 +111,7 @@
             event.target.textContent = turn;
 
             // 승부 확인
+            checkWinner(event.target);
             turn = (turn === 'X' ? 'O' : 'X');
         }
 
