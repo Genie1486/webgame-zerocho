@@ -126,12 +126,42 @@
                 return;
             }
 
-            // 
+            updateMonsterStat() { // 몬스터 정보 표시 메서드
+                const { monster } = this;
+                if (monster === null) {
+                    $monsterName.textContent = '';
+                    $monsterHp.textContent = '';
+                    $monsterAtt.textContent = '';
+                    return;
+                }
+                $monsterName.textContent = monster.name;
+                $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+                $monsterAtt.textContent = `ATT: ${monster.att}`;
+            }
+
+            createMonster() { // 몬스터 생성 메서드
+                const randomIndex = Math.floor(Math.random() * this.monsterList.length);
+                const randomMonster = this.monsterList[randomIndex];
+                this.monster = new Monster(
+                    randomMonster.name,
+                    randomMonster.hp,
+                    randomMonster.att,
+                    randomMonster.xp,
+                );
+                this.updateMonsterStat();
+                this.showMessage(`몬스터와 마주쳤다. ${this.monster.name}인 것 같다!`);
+            }
+
+            showMessage(text) {
+                $message.textContent = text;
+            }
+
             onGameMenuInput = (event) => { // 일반 메뉴 메서드
                 event.preventDefault();
                 const input = event.target['menu-input'].value;
                 if (input === '1') { // 모험
                     this.changeScreen('battle');
+                    this.createMonster();
                 } else if (input === '2') { // 휴식
 
                 } else if (input === '3') { // 종료
