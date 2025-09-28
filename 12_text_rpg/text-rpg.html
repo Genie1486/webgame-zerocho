@@ -61,6 +61,19 @@
             hp: 100,
             xp: 0,
             att: 10,
+            // 객체안에 this가 있으면 this는 객체 자신을 가르킨다.
+            // this 쓸 때는 화살표 함수 사용하면 안된다.
+            // 화살표 함수일 때는 this는 window를 가르킴
+            // window는 브라우저 전체를 담당하는 객체
+            // window는 생략 가능하여 window.console.log() 대신 console.log() 로도 동작함
+            attack(monster) { // 몬스터 공격 메서드
+                monster.hp -= this.att;
+                this.hp -= monster.att;
+            },
+            heal(monster) { // 체력 회복 메서드
+                this.hp += 20;
+                this.hp -= monster.att;
+            },
         };
 
         let monster = null;
@@ -99,6 +112,7 @@
                 // 얕은 복사 const monster3 ={...monsterList[0]}
                 // - 얕은 복사는 가장 외부 껍데기만 복사하고 내부객체는 참조
                 // - 내부에 있는 객체도 참조를 끊어주고 싶다면 깊은 복사 사용
+                // - slice, concat도 얕은 복사 
 
                 // monster1.name = '새 몬스터' 수정해도 monsterList[0]의 값은 변동 없음
                 // monster2.name = '새 몬스터' 수정하면 monsterList[0]의 값도 수정 됨
@@ -122,12 +136,16 @@
         });
 
         $battleMenu.addEventListener('submit', (event) => {
+            event.preventDefault();
             const input = event.target['battle-input'].value;
-            if (input === '1') {
+            if (input === '1') { // 1번 공격 선택시
+                hero.attack(monster);
+                $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+                $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+                $message.textContent = `${hero.att}의 피해를 주고, ${monster.att}의 피해를 받았다.`;
+            } else if (input === '2') { // 2번 회복 선택 시
 
-            } else if (input === '2') {
-
-            } else if (input === '3') {
+            } else if (input === '3') { // 3번 도망 선택 시
 
             }
         });
