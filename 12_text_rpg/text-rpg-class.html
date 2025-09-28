@@ -67,6 +67,23 @@
             }
 
             start() { // 게임 시작 메서드
+                // console.log(this);
+                // start()에서 this는 Game 객체이다.
+
+                // addEventListener의 콜백함수에 this를 쓰는 경우 
+                // this는 $gameMenu이다 .
+
+                // 이런 안쪽 this와 바깥쪽 this의
+                // 불일치 문제를 해결하기 위해서
+
+                // const _this = this;
+                // const self = this;
+                // const that = this;
+
+                // 또는
+                // 화살표 함수를 사용해도 된다.
+                // 화살표 함수에서 this는 바깥쪽의 this를 그대로 가져오기 때문
+
                 $gameMenu.addEventListener('submit', this.onGameMenuInput);
                 $battleMenu.addEventListener('submit', this.onBattleMenuInput);
                 this.changeScreen('game');
@@ -88,6 +105,7 @@
                 }
             }
 
+            // 
             onGameMenuInput = (event) => { // 일반 메뉴 메서드
                 event.preventDefault();
                 const input = event.target['menu-input'].value;
@@ -96,19 +114,20 @@
                 } else if (input === '2') { // 휴식
 
                 } else if (input === '3') { // 종료
-
+                    this.changeScreen('game');
                 }
             }
 
             onBattleMenuInput = (event) => { // 전투 메뉴 메서드
                 event.preventDefault();
-                const input = event.target['menu-input'].value;
+                const input = event.target['battle-input'].value;
                 if (input === '1') { // 공격
-                    this.changeScreen('battle');
+
                 } else if (input === '2') { // 회복
 
                 } else if (input === '3') { // 도망
-
+                    console.log(input);
+                    this.changeScreen('game');
                 }
             }
         }
