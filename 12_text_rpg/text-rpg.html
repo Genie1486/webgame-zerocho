@@ -94,6 +94,18 @@
             if (input === '1') { // 1번 모험 선택시
                 $gameMenu.style.display = 'none'; // 일반 메뉴 화면 숨기기
                 $battleMenu.style.display = 'block'; // 전투 메뉴 화면 보이기
+                // 깊은 복사 const monster1 = JSON.parse(JSON.stringify(monsterList[0])) 
+                // 참조 const monster2 =monsterList[0]
+                // 얕은 복사 const monster3 ={...monsterList[0]}
+                // - 얕은 복사는 가장 외부 껍데기만 복사하고 내부객체는 참조
+                // - 내부에 있는 객체도 참조를 끊어주고 싶다면 깊은 복사 사용
+
+                // monster1.name = '새 몬스터' 수정해도 monsterList[0]의 값은 변동 없음
+                // monster2.name = '새 몬스터' 수정하면 monsterList[0]의 값도 수정 됨
+                // monster3.name = '새 몬스터' 수정해도 monsterList[0]의 값은 변동 없음
+
+                // monster1 === monsterList[0] false
+                // monster2 === monsterList[0] true
                 monster = JSON.parse(
                     JSON.stringify(monsterList[Math.floor(Math.random() * monsterList.length)])
                 ); // 몬스터 무작위로 가져오기
