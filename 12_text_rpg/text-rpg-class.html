@@ -63,10 +63,10 @@
                     { name: '스켈레톤', hp: 50, att: 15, xp: 20 },
                     { name: '마왕', hp: 150, att: 35, xp: 50 },
                 ];
-                this.start();
+                this.start(name);
             }
 
-            start() { // 게임 시작 메서드
+            start(name) { // 게임 시작 메서드
                 // console.log(this);
                 // start()에서 this는 Game 객체이다.
 
@@ -87,6 +87,8 @@
                 $gameMenu.addEventListener('submit', this.onGameMenuInput);
                 $battleMenu.addEventListener('submit', this.onBattleMenuInput);
                 this.changeScreen('game');
+                this.hero = new Hero(name);
+                this.updateHeroStat();
             }
 
             changeScreen(screen) { // 화면 전환 메서드
@@ -103,6 +105,25 @@
                     $gameMenu.style.display = 'none';
                     $battleMenu.style.display = 'block'; // 전투 메뉴 화면 보이기
                 }
+            }
+
+            updateHeroStat() { // 주인공 정보 표시 메서드
+                const { hero } = this;
+                if (hero === null) { // 주인공이 죽었을 때
+                    $heroName.textContent = '';
+                    $heroLevel.textContent = '';
+                    $heroHp.textContent = '';
+                    $heroXp.textContent = '';
+                    $heroAtt.textContent = '';
+                    return;
+                }
+
+                $heroName.textContent = hero.name;
+                $heroLevel.textContent = `${hero.lev}Lev`;
+                $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+                $heroXp.textContent = `XP: ${hero.xp}/${15 * hero.lev}`;
+                $heroAtt.textContent = `ATT: ${hero.att}`;
+                return;
             }
 
             // 
