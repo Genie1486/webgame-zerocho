@@ -60,6 +60,7 @@
         let shuffled = []; // 섞은 카드 배열
         let clicked = []; // 클릭한 카드 배열 
         let completed = []; // 완료 카드 배열
+        let clickable = false; // 클릭 가능 여부
 
         function shuffle() { // 피셔-예이츠 셔플 알고리즘 
             for (; colorCopy.length > 0;) {
@@ -86,6 +87,9 @@
         }
 
         function onClickCard() { // 클릭한 카드 확인 함수
+            if (!clickable) {
+                return;
+            }
             this.classList.toggle('flipped');
             clicked.push(this);
 
@@ -135,12 +139,15 @@
                 setTimeout(() => {
                     card.classList.add('flipped');
                 }, 1000 + 100 * index)
+
             })
 
+            // 카드 뒷면 보이기
             setTimeout(() => {
                 document.querySelectorAll('.card').forEach((card) => {
                     card.classList.remove('flipped');
                 });
+                clickable = true;
             }, 5000);
         }
 
@@ -150,6 +157,7 @@
             colorCopy = colors.concat(colors);
             shuffled = [];
             completed = [];
+            clickable = false;
             startGame();
         }
 
