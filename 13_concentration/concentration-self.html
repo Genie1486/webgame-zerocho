@@ -63,6 +63,7 @@
         let clicked = []; // 클릭한 카드 배열 
         let completed = []; // 완료 카드 배열
         let clickable = false; // 클릭 가능 여부
+        let startTime;
 
         function shuffle() { // 피셔-예이츠 셔플 알고리즘 
             for (; colorCopy.length > 0;) {
@@ -112,8 +113,9 @@
                     return;
                 }
 
+                const endTime = new Date();
                 setTimeout(() => {
-                    alert(`축하합니다!`);
+                    alert(`축하합니다! ${(endTime - startTime) / 1000}초 걸렸습니다.`);
                     resetGame();
                 }, 1000);
 
@@ -154,6 +156,7 @@
                     card.classList.remove('flipped');
                 });
                 clickable = true;
+                startTime = new Date();
             }, 5000);
         }
 
