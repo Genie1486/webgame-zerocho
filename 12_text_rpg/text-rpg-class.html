@@ -167,7 +167,8 @@
                     this.updateHeroStat();
                     this.showMessage('충분한 휴식을 취했다.');
                 } else if (input === '3') { // 종료
-                    this.changeScreen('game');
+                    this.showMessage('');
+                    this.quit();
                 }
             }
 
