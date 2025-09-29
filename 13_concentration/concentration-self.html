@@ -51,12 +51,14 @@
     <div id="wrapper"></div>
     <script>
         const $wrapper = document.querySelector('#wrapper');
-        const total = 12; // 전체 카드 수                                     
-        const colors = ['red', 'orange', 'yellow', 'green', 'white', 'pink']; // 카드 색
+        const total = parseInt(prompt('카드 개수를 짝수로 입력하세요(최대 20).')); // 전체 카드 수                                     
+        const colors = ['red', 'orange', 'yellow', 'green', 'white',
+            'pink', 'cyan', 'violet', 'gray', 'black']; // 카드 색
 
         // concat은 원본 배열을 수정하지 않고 새로운 배열을 만들어 냄
         // concat은 얕은 복사 역할도 할 수 있음
-        let colorCopy = colors.concat(colors); // 카드 색 복사 
+        let colorSlice = colors.slice(0, total / 2);
+        let colorCopy = colorSlice.concat(colorSlice); // 카드 색 복사 
         let shuffled = []; // 섞은 카드 배열
         let clicked = []; // 클릭한 카드 배열 
         let completed = []; // 완료 카드 배열
