@@ -51,6 +51,46 @@
     <div id="wrapper"></div>
     <script>
         const $wrapper = document.querySelector('#wrapper');
+        const total = 12; // 전체 카드 수                                     
+        const colors = ['red', 'orange', 'yellow', 'green', 'white', 'pink']; // 카드 색
+
+        // concat은 원본 배열을 수정하지 않고 새로운 배열을 만들어 냄
+        // concat은 얕은 복사 역할도 할 수 있음
+        let colorCopy = colors.concat(colors); // 카드 색 복사 
+        let shuffled = []; // 섞은 카드 배열
+
+        function shuffle() { // 피셔-예이츠 셔플 알고리즘 
+            for (; colorCopy.length > 0;) {
+                const randomIndex = Math.floor(Math.random() * colorCopy.length);
+                shuffled = shuffled.concat(colorCopy.splice(randomIndex, 1));
+            }
+        }
+
+        // div.card > div.card-inner > (div.card-front + div.card-back)
+        function createCard(i) { // 카드 생성 함수 
+            const card = document.createElement('div');
+            card.className = 'card'; // .card 태그 생성
+            const cardInner = document.createElement('div');
+            cardInner.className = 'card-inner'; // .card-inner 태그 생성 
+            const cardBack = document.createElement('div');
+            cardBack.className = 'card-back'; // .card-back 태그 생성 
+            const cardFront = document.createElement('div');
+            cardFront.className = 'card-front'; // .card-front 태그 생성
+            cardFront.style.backgroundColor = shuffled[i]; // 카드 색
+            cardInner.appendChild(cardBack);
+            cardInner.appendChild(cardFront);
+            card.appendChild(cardInner);
+            return card;
+        }
+
+        function startGame() { // 게임 시작 함수 
+            shuffle(); // 카드 섞기
+            for (let i = 0; i < total; i += 1) {
+                const card = createCard(i); // 카드 생성
+                $wrapper.appendChild(card);
+            }
+        }
+        startGame();
     </script>
 </body>
 
