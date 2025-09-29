@@ -101,11 +101,19 @@
                 completed.push(clicked[0]); // 완료 카드 배열에 추가
                 completed.push(clicked[1]); // 완료 카드 배열에 추가
                 clicked = []; // 클릭한 카드 배열 비우기
+
+                if (completed.length !== total) {
+                    return;
+                }
+
+                setTimeout(() => {
+                    alert(`축하합니다!`);
+                }, 1000);
+
                 return;
             }
 
             // 두 카드의 색이 다르면
-            console.log('두 카드의 색이 다릅니다.');
             setTimeout(() => {
                 clicked[0].classList.remove('flipped'); // flipped 클래스 제거
                 clicked[1].classList.remove('flipped'); // flipped 클래스 제거
@@ -134,6 +142,7 @@
                 });
             }, 5000);
         }
+
         startGame();
     </script>
 </body>
