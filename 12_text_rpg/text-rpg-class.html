@@ -202,8 +202,10 @@
                     this.showMessage('체력을 조금 회복했다!');
                     this.updateHeroStat();
                 } else if (input === '3') { // 도망
-                    console.log(input);
                     this.changeScreen('game');
+                    this.showMessage('부리나케 도망쳤다!');
+                    this.monster = null;
+                    this.updateMonsterStat();
                 }
             }
 
