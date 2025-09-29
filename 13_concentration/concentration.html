@@ -108,6 +108,7 @@
 
                 setTimeout(() => {
                     alert(`축하합니다!`);
+                    resetGame();
                 }, 1000);
 
                 return;
@@ -141,6 +142,15 @@
                     card.classList.remove('flipped');
                 });
             }, 5000);
+        }
+
+        function resetGame() {
+            $wrapper.innerHTML = '';
+            // push, pop, shift, unshift, splice, sort 는 원본이 바뀐다.
+            colorCopy = colors.concat(colors);
+            shuffled = [];
+            completed = [];
+            startGame();
         }
 
         startGame();
