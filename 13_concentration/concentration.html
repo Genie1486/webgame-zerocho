@@ -87,7 +87,7 @@
         }
 
         function onClickCard() { // 클릭한 카드 확인 함수
-            if (!clickable) {
+            if (!clickable || completed.includes(this) || clicked[0] === this) {
                 return;
             }
             this.classList.toggle('flipped');
